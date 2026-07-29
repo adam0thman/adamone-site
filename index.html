@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>adamOne Services (AOS) — SAP BASIS · ABAP · BTP · Fiori</title>
+<meta name="description" content="adamOne Services: an SAP technical shop. BASIS administration, ABAP development, BTP side-by-side extensions — and vibe-coded custom Fiori apps. We build the systems we run.">
+<meta property="og:title" content="adamOne Services (AOS) — SAP technical shop">
+<meta property="og:description" content="BASIS · ABAP · BTP · vibe-coded Fiori. One shop that runs the systems it builds on.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#F8FAFC; --surface:#FFFFFF; --surface-2:#F1F5F9;
+    --border:#E2E8F0; --border-2:#CBD5E1;
+    --ink:#0F172A; --ink-2:#334155; --muted:#64748B; --muted-2:#94A3B8;
+    --accent:#0369A1; --accent-strong:#075985; --accent-soft:#E0F2FE;
+    --basis:#334155; --abap:#0369A1; --btp:#0891B2; --fiori:#059669;
+    --sans:'Lexend',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --r:10px; --r-lg:14px; --maxw:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink-2);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent);font-weight:500}
+  h1,h2,h3{color:var(--ink);font-weight:700;letter-spacing:-.02em;line-height:1.08;margin:0}
+
+  /* top accent bar */
+  .topbar{height:3px;background:linear-gradient(90deg,var(--basis),var(--abap),var(--btp),var(--fiori))}
+
+  header.nav{position:sticky;top:0;z-index:20;background:rgba(248,250,252,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-weight:700;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:9px}
+  .brand .sq{width:10px;height:10px;border-radius:2px;background:var(--accent)}
+  .brand small{color:var(--muted);font-weight:400;font-family:var(--mono);font-size:12px}
+  .nav .links{display:flex;gap:24px;align-items:center}
+  .nav .links a{font-size:14px;color:var(--ink-2);text-decoration:none;font-weight:500}
+  .nav .links a:hover{color:var(--accent)}
+  .nav .cta{font-size:13px;text-decoration:none;padding:9px 16px;border-radius:8px;background:var(--accent);color:#fff;font-weight:600;transition:background .15s}
+  .nav .cta:hover{background:var(--accent-strong)}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:600;padding:13px 22px;border-radius:9px;font-size:15px;transition:background .15s,border-color .15s,color .15s;cursor:pointer;border:1px solid transparent}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-strong)}
+  .btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-2)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .btn svg{width:18px;height:18px}
+  .actions{display:flex;flex-wrap:wrap;gap:12px}
+
+  /* hero */
+  .hero{position:relative;padding:96px 0 72px}
+  .hero::before{content:"";position:absolute;inset:0;z-index:0;
+    background-image:radial-gradient(var(--border-2) 1px,transparent 1px);background-size:22px 22px;
+    -webkit-mask-image:linear-gradient(180deg,#000,transparent 78%);mask-image:linear-gradient(180deg,#000,transparent 78%);opacity:.5}
+  .hero .wrap{position:relative;z-index:1}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);border:1px solid var(--border-2);background:var(--surface);padding:6px 13px;border-radius:999px;margin-bottom:26px}
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--fiori)}
+  h1{font-size:clamp(2.6rem,1.1rem+5.6vw,5rem);margin-bottom:22px;letter-spacing:-.035em}
+  h1 .hl{color:var(--accent)}
+  .lede{font-size:clamp(1.05rem,.95rem+.5vw,1.28rem);color:var(--ink-2);max-width:62ch;margin:0 0 32px}
+  .lede b{color:var(--ink);font-weight:600}
+  .hero-note{margin-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .hero-note .p{color:var(--fiori)}
+
+  /* stat strip */
+  .stats{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+  .stat{padding:24px 20px;border-left:1px solid var(--border)}
+  .stat:first-child{border-left:0}
+  .stat .num{font-family:var(--mono);font-size:1.9rem;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+  .stat .lbl{font-size:13px;color:var(--muted);margin-top:2px}
+
+  section{padding:80px 0}
+  .sec-head{max-width:64ch;margin-bottom:44px}
+  h2{font-size:clamp(1.75rem,1.2rem+2vw,2.6rem);margin:10px 0 12px}
+  .sec-head p{color:var(--ink-2);font-size:1.05rem;margin:0}
+
+  /* services */
+  .svc{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px;display:flex;flex-direction:column;gap:14px;transition:border-color .15s,transform .15s;text-decoration:none;color:inherit}
+  .card:hover{transform:translateY(-3px);border-color:var(--c)}
+  .c-basis{--c:var(--basis)} .c-abap{--c:var(--abap)} .c-btp{--c:var(--btp)} .c-fiori{--c:var(--fiori)}
+  .card .top{display:flex;align-items:center;gap:12px}
+  .card .chip{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 10px;border-radius:6px;color:var(--c);background:color-mix(in srgb,var(--c) 12%,#fff);border:1px solid color-mix(in srgb,var(--c) 30%,#fff)}
+  .card h3{font-size:1.25rem}
+  .card p{margin:0;color:var(--ink-2);font-size:14.5px}
+  .card ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:7px}
+  .card li{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);border:1px solid var(--border);border-radius:6px;padding:4px 9px;background:var(--surface-2)}
+  .card.featured{border-color:color-mix(in srgb,var(--fiori) 40%,var(--border))}
+  .card .go{margin-top:auto;font-family:var(--mono);font-size:12.5px;color:var(--c);font-weight:600}
+  .card .ribbon{position:absolute;top:-10px;right:22px;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;background:var(--fiori);color:#fff;padding:4px 11px;border-radius:6px}
+
+  /* why — navy color block */
+  .why{background:var(--ink);color:#CBD5E1}
+  .why .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}
+  .why .eyebrow{color:#7DD3FC}
+  .why h2{color:#fff}
+  .why .intro{color:#94A3B8;font-size:1.05rem;margin-top:12px}
+  .why .pts{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .why .pt .n{font-family:var(--mono);font-size:13px;color:#38BDF8;font-weight:600;margin-bottom:8px}
+  .why .pt b{display:block;color:#fff;font-size:15px;margin-bottom:4px}
+  .why .pt span{font-size:13.5px;color:#94A3B8}
+
+  /* contact */
+  .contact{text-align:center}
+  .contact .wrap{max-width:640px}
+  .contact p{color:var(--ink-2);margin:0 auto 28px;font-size:1.08rem}
+  .contact .actions{justify-content:center}
+
+  footer{background:var(--ink);color:#94A3B8;padding:32px 0;font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer a{color:#CBD5E1;text-decoration:none}
+  footer a:hover{color:#fff}
+  footer .mono{font-family:var(--mono);font-size:12px}
+
+  @media(max-width:860px){
+    .nav .links{display:none}
+    .stats .wrap{grid-template-columns:1fr 1fr}
+    .stat:nth-child(3){border-left:0}
+    .stat{border-top:1px solid var(--border)}
+    .stat:nth-child(-n+2){border-top:0}
+    .svc{grid-template-columns:1fr}
+    .why .wrap{grid-template-columns:1fr;gap:28px}
+    .why .pts{grid-template-columns:1fr}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brand"><span class="sq"></span>adamOne <small>Services</small></div>
+    <nav class="links">
+      <a href="#services">Services</a>
+      <a href="https://fiori.adamoneservices.com/">Fiori&nbsp;↗</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="cta" href="#contact">Talk to us</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="badge"><span class="dot"></span>SAP technical shop — we run the systems we build on</div>
+    <h1>SAP, <span class="hl">run and built</span><br>by one shop.</h1>
+    <p class="lede"><b>adamOne Services (AOS)</b> is a hands-on SAP practice: <b>BASIS</b> administration, <b>ABAP</b> development, <b>BTP</b> side-by-side extensions — and <b>vibe-coded custom Fiori apps</b>, honestly declared. The same team that develops your app can activate it, transport it, and keep the system healthy.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://wa.me/60133609999?text=Hi%20AOS%20%E2%80%94%20I%27d%20like%20to%20talk%20about%20SAP%20%5BBASIS%20%7C%20ABAP%20%7C%20BTP%20%7C%20Fiori%5D." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.055zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        WhatsApp us
+      </a>
+      <a class="btn btn-ghost" href="#services">Our services</a>
+    </div>
+    <div class="hero-note"><span class="p">$</span> one team, whole landscape — dev, deploy, and keep it running</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="num">4</div><div class="lbl">disciplines, one bench</div></div>
+    <div class="stat"><div class="num">1</div><div class="lbl">team — no hand-off gaps</div></div>
+    <div class="stat"><div class="num">100%</div><div class="lbl">source handed over</div></div>
+    <div class="stat"><div class="num">0</div><div class="lbl">runtime lock-in</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">// what we do</span>
+      <h2>Four disciplines, one bench.</h2>
+      <p>Most shops do one of these. We do all four — which is why the Fiori app we vibe-code is one we can also activate, transport, and support end to end.</p>
+    </div>
+    <div class="svc">
+
+      <div class="card c-basis">
+        <div class="top"><span class="chip">BASIS</span><h3>System administration</h3></div>
+        <p>The plumbing — installed, tuned, patched, and watched.</p>
+        <ul><li>Installs &amp; upgrades</li><li>OS/DB migration</li><li>S/4 conversion</li><li>System copy</li><li>HANA admin</li><li>Monitoring</li><li>Security baseline</li></ul>
+      </div>
+
+      <div class="card c-abap">
+        <div class="top"><span class="chip">ABAP</span><h3>Backend development</h3></div>
+        <p>On-stack and clean-core ABAP that survives your next upgrade.</p>
+        <ul><li>RAP / CDS</li><li>OData services</li><li>ABAP Cloud</li><li>Enhancements</li><li>IDoc / BAPI / Proxy</li><li>Reports &amp; jobs</li></ul>
+      </div>
+
+      <div class="card c-btp">
+        <div class="top"><span class="chip">BTP</span><h3>Side-by-side extensions</h3></div>
+        <p>Keep the core clean; put the custom logic next to it.</p>
+        <ul><li>CAP / RAP apps</li><li>Integration Suite</li><li>Cloud Connector</li><li>Destinations</li><li>XSUAA / IAS</li><li>Work Zone</li></ul>
+      </div>
+
+      <a class="card featured c-fiori" href="https://fiori.adamoneservices.com/">
+        <div class="ribbon">FEATURED</div>
+        <div class="top"><span class="chip">FIORI</span><h3>Custom Fiori apps</h3></div>
+        <p><b>Vibe-coded — and we say so.</b> Full source, setup guides, no runtime lock-in. On-Prem/PCE, Public Cloud S/4, or BTP.</p>
+        <ul><li>Fiori Elements</li><li>Freestyle UI5</li><li>Low / Mid / Pro</li></ul>
+        <span class="go">See packages &amp; the delivery flow →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">// why one shop</span>
+      <h2>The team that builds it, runs it.</h2>
+      <p class="intro">No throwing work over a wall between "the developer" and "the Basis team." That's us — so nothing falls in the gap.</p>
+    </div>
+    <div class="pts">
+      <div class="pt"><div class="n">01</div><b>No hand-off gaps</b><span>The app author does the OData activation, roles, and transport. One throat to choke.</span></div>
+      <div class="pt"><div class="n">02</div><b>Honest about AI</b><span>Fiori work is vibe-coded and declared. You get full source, so your team stays in control.</span></div>
+      <div class="pt"><div class="n">03</div><b>Landscape-aware</b><span>On-Prem, Public Cloud S/4, BTP — we scope access and tooling correctly before coding.</span></div>
+      <div class="pt"><div class="n">04</div><b>No lock-in</b><span>Standard SAP, standard transports. You can rebuild or re-transport without us.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">// get in touch</span>
+    <h2 style="margin:10px 0 12px">Tell us what your SAP needs.</h2>
+    <p>BASIS task, ABAP build, BTP extension, or a custom Fiori app — one message and we'll scope it.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://wa.me/60133609999?text=Hi%20AOS%20%E2%80%94%20I%27d%20like%20to%20talk%20about%20SAP%20%5BBASIS%20%7C%20ABAP%20%7C%20BTP%20%7C%20Fiori%5D." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.055zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        Message on WhatsApp
+      </a>
+      <a class="btn btn-ghost" href="mailto:hello@adamoneservices.com?subject=SAP%20enquiry&body=Area%20(BASIS%20%7C%20ABAP%20%7C%20BTP%20%7C%20Fiori)%3A%0AWhat%20you%20need%3A%0A">Email us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="mono">© <span id="yr">2026</span> adamOne Services (AOS) · SAP BASIS · ABAP · BTP · Fiori</div>
+    <div><a href="https://fiori.adamoneservices.com/">Fiori microsite ↗</a></div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
