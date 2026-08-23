@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>S/4HANA Conversion Readiness — adamOne Services (AOS)</title>
-<meta name="description" content="AOS SI-Resolver: AI-assisted, governed resolution of the S/4HANA MasterData_BP Simplification Item (Customer/Vendor → Business Partner). Proven at 150,000-record scale. Read-only to start.">
+<meta name="description" content="AOS SI-Resolver: AI-assisted, human-governed resolution of the S/4HANA MasterData_BP Simplification Item. Data-consistency-first, secure by design, human-in-the-loop accuracy. Your master data never leaves your landscape.">
 <meta property="og:title" content="Make your S/4HANA SI checks go green — adamOne Services">
 <meta property="og:description" content="Productized MasterData_BP conversion readiness. AI-assisted, governed, proven. Partner licensing available.">
 <meta property="og:type" content="website">
@@ -144,6 +144,17 @@
   .callout b{color:var(--ink)}
   .callout a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
 
+  /* embedded architecture diagrams */
+  .figrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  @media(max-width:880px){.figrow{grid-template-columns:1fr}}
+  figure.fig{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;overflow-x:auto}
+  figure.fig svg{display:block;width:100%;height:auto;min-width:440px}
+  figure.fig figcaption{margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.5}
+  figure.fig figcaption b{color:var(--ink-2);font-weight:600}
+  .diglegend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  .diglegend span{display:inline-flex;align-items:center;gap:7px}
+  .diglegend .d{width:10px;height:10px;border-radius:3px;display:inline-block}
+
   /* why navy (site component) */
   .why{background:var(--ink);color:#CBD5E1}
   .why .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}
@@ -188,7 +199,8 @@
     <a class="brand" href="/"><span class="sq"></span>adamOne <small>Services</small></a>
     <nav class="links">
       <a href="#approach">Approach</a>
-      <a href="#proof">Track record</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#accuracy">Accuracy</a>
       <a href="#partners">Partners</a>
       <a href="/#services">All services</a>
     </nav>
@@ -202,10 +214,10 @@
     <div>
       <div class="badge"><span class="dot"></span>S/4HANA conversion · Simplification Items</div>
       <h1>Make your SI checks <span class="hl">go green.</span></h1>
-      <p class="lede">The same shop that runs your <b>BASIS</b> and writes your <b>ABAP</b> resolves the
-        master-data blocker in your ECC-to-S/4HANA conversion — starting with the one that stops most
-        projects: <b>MasterData_BP</b> (Customer/Vendor → Business Partner). AI-assisted, governed,
-        proven at 150,000-record scale.</p>
+      <p class="lede">We resolve the <b>MasterData_BP</b> blocker (Customer/Vendor → Business Partner) in
+        your ECC-to-S/4HANA conversion the way enterprise master data demands: <b>consistency-first</b>,
+        <b>secure by design</b>, and <b>human-in-the-loop</b> — an AI resolver does the diagnosis, your
+        people approve every change, and your data never leaves your landscape.</p>
       <div class="actions">
         <a class="btn btn-go" href="#contact">Book a readiness assessment</a>
         <a class="btn btn-ghost" href="#approach">See how we work</a>
@@ -221,20 +233,20 @@
       <div class="check-row"><span class="name">CHK_VEND_MAP</span><span class="rc g">RC0</span></div>
       <div class="check-row"><span class="name">CHK_CON_ASSIGNMENT</span><span class="rc a">RC4</span></div>
       <div class="resolved">
-        <span class="big">143,088<span style="color:var(--muted-2);font-weight:600;font-size:.62em"> / 143,090</span></span>
-        <span class="s">vendors linked · 0 orphans on customers · 93 dual entities merged</span>
+        <span class="big">RC0</span>
+        <span class="s">every write human-approved · 0 orphan links · full audit trail · nothing left production</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
+<!-- STATS (trust posture, not scale) -->
 <div class="stats">
   <div class="wrap">
-    <div class="stat"><div class="num">143,088<span class="u">/143,090</span></div><div class="lbl">vendors converted to BPs (Universiti Malaya)</div></div>
-    <div class="stat"><div class="num">100<span class="u">%</span></div><div class="lbl">customers converted · 0 customer orphans</div></div>
-    <div class="stat"><div class="num">93</div><div class="lbl">dual entities merged to dual-role BPs</div></div>
-    <div class="stat"><div class="num">35,673</div><div class="lbl">unmappable-industry records cleansed</div></div>
+    <div class="stat"><div class="num">Read-only<span class="u">.</span></div><div class="lbl">default posture — assess before you commit</div></div>
+    <div class="stat"><div class="num">0<span class="u"> rows</span></div><div class="lbl">of master data leave your landscape</div></div>
+    <div class="stat"><div class="num">100<span class="u">%</span></div><div class="lbl">of writes are human-approved</div></div>
+    <div class="stat"><div class="num">Every<span class="u"> change</span></div><div class="lbl">logged to an immutable audit trail</div></div>
   </div>
 </div>
 
@@ -290,36 +302,199 @@
     <div class="callout"><span class="ic">◆</span>
       <p><b>Governance is built in, not bolted on.</b> The tooling runs inside your landscape, returns
         aggregates rather than records, masks any personal data before it's ever inspected, and refuses
-        production by default. <a href="https://claude.ai/code/artifact/fa969ed4-9df8-41b3-ac05-b0f71f3ea1cb" target="_blank" rel="noopener">See the architecture &amp; data-governance model →</a></p></div>
+        production by default. <a href="#architecture">See the architecture &amp; data-governance model →</a></p></div>
   </div>
 </section>
 
-<!-- PROOF -->
-<section id="proof">
+<!-- ARCHITECTURE (disclosed) -->
+<section id="architecture">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">// track record</span>
-      <h2>Proven across two real conversions.</h2>
-      <p>Not a slide-deck methodology — an operating one, sharpened on a small SP-gated system and a
-        150,000-record data-quality problem.</p>
+      <span class="eyebrow">// how it's built</span>
+      <h2>Disclosed by design.</h2>
+      <p>We don't ask you to trust a black box. Here is exactly how the tooling is built and where the
+        data goes. The engine is an AI <b>skill</b> (the methodology) plus a Python <b>MCP</b> (the hands)
+        that reaches your system only through a governance kernel and a swappable adapter — never a raw
+        connection, never a hosted service.</p>
     </div>
-    <div class="grid two">
-      <div class="card case"><span class="cn">CASE · SP-GATED</span><h3>Digital DSD</h3>
-        <p>A small landscape 12 years behind on support packs — the BP framework literally couldn't
-          generate. We ran the SP upgrade, cleared the phantom proxies, fixed the client-copy config
-          gaps, and loaded clean.</p>
-        <div class="r">→ 1,429 Business Partners · 0 orphans</div></div>
-      <div class="card case"><span class="cn">CASE · DATA AT SCALE</span><h3>Universiti Malaya</h3>
-        <p>150k master records, 1,759 partners hidden under a placeholder country across 91 real
-          countries, 42 missing tax categories, dual entities to merge. A self-resuming load that
-          survived 13 restarts and a 3.5-hour VPN outage.</p>
-        <div class="r">→ RC12 → RC4 · CVI_MAPPING green</div></div>
+
+    <figure class="fig" style="margin-bottom:16px">
+      <svg viewBox="0 0 1000 520" role="img" aria-label="Layered architecture: consultant and Claude use the skill methodology, which calls the MCP server whose governance kernel wraps every tool before reaching SAP through JCo, pyRFC or DB adapters. Secrets come from an encrypted vault in memory only; only an aggregated report flows back.">
+        <defs>
+          <marker id="aA" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#334155"/></marker>
+          <marker id="aB" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#0369A1"/></marker>
+          <marker id="aG" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#059669"/></marker>
+        </defs>
+        <g font-family="'IBM Plex Mono',monospace" font-size="11" fill="#64748B">
+          <text x="14" y="50">CONSUMER</text><text x="14" y="150">SKILL</text>
+          <text x="14" y="300">MCP SERVER</text><text x="14" y="490">CUSTOMER SIDE</text>
+        </g>
+        <!-- consumer -->
+        <rect x="150" y="20" width="300" height="50" rx="8" fill="#fff" stroke="#0F172A" stroke-width="1.4"/>
+        <text x="300" y="42" text-anchor="middle" font-family="Lexend" font-weight="700" font-size="14" fill="#0F172A">Consultant + Claude</text>
+        <text x="300" y="60" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#64748B">Claude Code / plugin</text>
+        <rect x="560" y="20" width="290" height="50" rx="8" fill="#fff" stroke="#0F172A" stroke-width="1.4"/>
+        <text x="705" y="42" text-anchor="middle" font-family="Lexend" font-weight="700" font-size="14" fill="#0F172A">Customer stakeholder</text>
+        <text x="705" y="60" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#64748B">reads the aggregated report</text>
+        <!-- skill -->
+        <rect x="150" y="108" width="700" height="64" rx="10" fill="#E0F2FE" stroke="#0369A1" stroke-width="1.4"/>
+        <text x="170" y="132" font-family="Lexend" font-weight="700" font-size="14" fill="#075985">si-resolver · skill (methodology)</text>
+        <g font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#075985">
+          <rect x="170" y="142" width="140" height="22" rx="5" fill="#fff" stroke="#0369A1"/><text x="240" y="157" text-anchor="middle">decision tree</text>
+          <rect x="322" y="142" width="176" height="22" rx="5" fill="#fff" stroke="#0369A1"/><text x="410" y="157" text-anchor="middle">failure-mode catalogue</text>
+          <rect x="510" y="142" width="150" height="22" rx="5" fill="#fff" stroke="#0369A1"/><text x="585" y="157" text-anchor="middle">SPRO / table map</text>
+          <rect x="672" y="142" width="160" height="22" rx="5" fill="#fff" stroke="#0369A1"/><text x="752" y="157" text-anchor="middle">SI plugin: BP…</text>
+        </g>
+        <!-- mcp container -->
+        <rect x="150" y="206" width="700" height="214" rx="10" fill="none" stroke="#CBD5E1" stroke-width="1.4" stroke-dasharray="2 4"/>
+        <!-- kernel -->
+        <rect x="170" y="222" width="660" height="48" rx="8" fill="#FBEEDC" stroke="#B45309" stroke-width="1.4"/>
+        <text x="500" y="242" text-anchor="middle" font-family="Lexend" font-weight="700" font-size="13" fill="#B45309">GOVERNANCE KERNEL — every call passes through</text>
+        <text x="500" y="260" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#B45309">read-only default · prod-refuse · PII redaction · write-approval · audit</text>
+        <!-- tools -->
+        <g font-family="Lexend" font-weight="600" font-size="11.5" fill="#0F172A">
+          <rect x="170" y="286" width="150" height="40" rx="6" fill="#fff" stroke="#0F172A"/><text x="245" y="304" text-anchor="middle">gauge</text><text x="245" y="318" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-weight="400" font-size="9" fill="#059669">read-only</text>
+          <rect x="332" y="286" width="150" height="40" rx="6" fill="#fff" stroke="#0F172A"/><text x="407" y="304" text-anchor="middle">PPO + T100</text><text x="407" y="318" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-weight="400" font-size="9" fill="#059669">read-only</text>
+          <rect x="494" y="286" width="150" height="40" rx="6" fill="#fff" stroke="#0F172A"/><text x="569" y="304" text-anchor="middle">prereq / config</text><text x="569" y="318" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-weight="400" font-size="9" fill="#059669">read-only</text>
+          <rect x="656" y="286" width="174" height="40" rx="6" fill="#fff" stroke="#B45309" stroke-width="1.2"/><text x="743" y="304" text-anchor="middle">load / fix</text><text x="743" y="318" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-weight="400" font-size="9" fill="#B45309">write-guarded</text>
+        </g>
+        <text x="170" y="350" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#64748B">CONNECTIVITY ADAPTERS — one interface</text>
+        <g font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#0F172A">
+          <rect x="170" y="358" width="205" height="30" rx="6" fill="#F1F5F9" stroke="#0F172A"/><text x="272" y="377" text-anchor="middle">JCo (Java bridge)</text>
+          <rect x="397" y="358" width="205" height="30" rx="6" fill="#F1F5F9" stroke="#0F172A"/><text x="499" y="377" text-anchor="middle">pyRFC (NW RFC SDK)</text>
+          <rect x="624" y="358" width="206" height="30" rx="6" fill="#F1F5F9" stroke="#0F172A"/><text x="727" y="377" text-anchor="middle">DB (HANA/ASE/Oracle)</text>
+        </g>
+        <!-- vault -->
+        <rect x="864" y="206" width="122" height="214" rx="10" fill="#D9F5E9" stroke="#059669" stroke-width="1.4"/>
+        <text x="925" y="300" text-anchor="middle" font-family="Lexend" font-weight="700" font-size="12" fill="#047857">creds vault</text>
+        <g font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#047857"><text x="925" y="318" text-anchor="middle">encrypted</text><text x="925" y="332" text-anchor="middle">in-memory</text><text x="925" y="346" text-anchor="middle">only</text></g>
+        <!-- sap -->
+        <rect x="300" y="452" width="400" height="56" rx="10" fill="none" stroke="#0F172A" stroke-width="2"/>
+        <text x="500" y="478" text-anchor="middle" font-family="Lexend" font-weight="800" font-size="15" fill="#0F172A">Customer SAP (ECC / S/4)</text>
+        <text x="500" y="497" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#64748B">KNA1 · LFA1 · CVI_*_LINK · BUT000 · PPO — inside your landscape</text>
+        <!-- flows -->
+        <line x1="300" y1="70" x2="300" y2="106" stroke="#334155" stroke-width="1.4" marker-end="url(#aA)"/>
+        <line x1="500" y1="172" x2="500" y2="204" stroke="#0369A1" stroke-width="1.8" marker-end="url(#aB)"/>
+        <text x="512" y="192" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#0369A1">tool call</text>
+        <line x1="500" y1="270" x2="500" y2="284" stroke="#334155" stroke-width="1.4" marker-end="url(#aA)"/>
+        <line x1="500" y1="388" x2="500" y2="450" stroke="#334155" stroke-width="1.4" marker-end="url(#aA)"/>
+        <text x="620" y="440" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#64748B">RFC / SQL over VPN + SAProuter</text>
+        <line x1="864" y1="300" x2="832" y2="300" stroke="#059669" stroke-width="1.4" marker-end="url(#aG)"/>
+        <path d="M 700 480 C 905 480, 705 55, 705 72" fill="none" stroke="#0369A1" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#aB)"/>
+        <text x="812" y="150" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#0369A1">aggregated</text>
+        <text x="812" y="164" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#0369A1">report only</text>
+      </svg>
+      <figcaption><b>The boundary that matters:</b> every tool crosses the governance kernel (amber)
+        before any adapter. Three of four tool families are read-only; only load/fix can write, and it
+        stays write-guarded. Secrets live in memory only; only an aggregated report flows back up.</figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 1000 400" role="img" aria-label="Trust boundary: inside the customer landscape, full PII tables feed the gauge which emits aggregates and a redaction layer which emits masked samples. Only aggregates and masked samples cross to Claude. Raw PII rows never cross.">
+        <defs>
+          <marker id="tA" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#0369A1"/></marker>
+          <marker id="tW" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#B45309"/></marker>
+          <marker id="tX" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto"><line x1="2" y1="2" x2="10" y2="10" stroke="#B91C1C" stroke-width="2"/><line x1="10" y1="2" x2="2" y2="10" stroke="#B91C1C" stroke-width="2"/></marker>
+          <marker id="tD" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#334155"/></marker>
+        </defs>
+        <rect x="20" y="38" width="560" height="344" rx="12" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.4"/>
+        <text x="40" y="62" font-family="'IBM Plex Mono',monospace" font-size="11" letter-spacing="1" fill="#64748B">CUSTOMER LANDSCAPE — DATA RESIDENT</text>
+        <rect x="660" y="38" width="320" height="344" rx="12" fill="#E0F2FE" stroke="#0369A1" stroke-width="1.4"/>
+        <text x="680" y="62" font-family="'IBM Plex Mono',monospace" font-size="11" letter-spacing="1" fill="#075985">CLAUDE CONTEXT</text>
+        <line x1="620" y1="28" x2="620" y2="390" stroke="#B91C1C" stroke-width="2" stroke-dasharray="6 5"/>
+        <text x="620" y="20" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10.5" font-weight="600" fill="#B91C1C">TRUST BOUNDARY</text>
+        <!-- PII -->
+        <rect x="44" y="84" width="220" height="72" rx="8" fill="#fff" stroke="#B91C1C" stroke-width="1.4"/>
+        <text x="60" y="107" font-family="Lexend" font-weight="700" font-size="13" fill="#0F172A">Full master data (PII)</text>
+        <text x="60" y="126" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#B91C1C">KNA1 · LFA1 · ADRC</text>
+        <text x="60" y="142" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#B91C1C">names · tax · bank · address</text>
+        <!-- gauge -->
+        <rect x="44" y="182" width="220" height="52" rx="8" fill="#fff" stroke="#0F172A" stroke-width="1.2"/>
+        <text x="60" y="204" font-family="Lexend" font-weight="600" font-size="12.5" fill="#0F172A">Gauge + reducer</text>
+        <text x="60" y="222" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#059669">COUNT / GROUP BY — never SELECT *</text>
+        <!-- redaction -->
+        <rect x="44" y="260" width="220" height="64" rx="8" fill="#FBEEDC" stroke="#B45309" stroke-width="1.3"/>
+        <text x="60" y="283" font-family="Lexend" font-weight="600" font-size="12.5" fill="#0F172A">Redaction layer</text>
+        <text x="60" y="301" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#B45309">mask names / tax / bank</text>
+        <text x="60" y="315" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#B45309">key + issue field only</text>
+        <!-- audit -->
+        <rect x="320" y="260" width="240" height="64" rx="8" fill="#fff" stroke="#0F172A" stroke-width="1"/>
+        <text x="336" y="283" font-family="Lexend" font-weight="600" font-size="12.5" fill="#0F172A">Immutable audit log</text>
+        <text x="336" y="301" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#64748B">who · system · tool · r/w · ts</text>
+        <text x="336" y="315" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#64748B">stays customer-side</text>
+        <!-- crossers -->
+        <rect x="700" y="92" width="240" height="66" rx="8" fill="#fff" stroke="#0369A1" stroke-width="1.3"/>
+        <text x="716" y="114" font-family="Lexend" font-weight="700" font-size="12.5" fill="#075985">Aggregate metrics</text>
+        <text x="716" y="132" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#075985">"24.9% industry unmapped"</text>
+        <text x="716" y="147" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#075985">"N dual entities"</text>
+        <rect x="700" y="176" width="240" height="64" rx="8" fill="#fff" stroke="#B45309" stroke-width="1.2"/>
+        <text x="716" y="198" font-family="Lexend" font-weight="700" font-size="12.5" fill="#0F172A">Masked sample</text>
+        <text x="716" y="216" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#B45309">LIFNR 4711 · BF00 195</text>
+        <text x="716" y="230" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#B45309">name = ***  (diagnose only)</text>
+        <rect x="700" y="270" width="240" height="50" rx="8" fill="#fff" stroke="#B91C1C" stroke-width="1.3"/>
+        <text x="716" y="292" font-family="Lexend" font-weight="700" font-size="12.5" fill="#B91C1C">Raw PII rows</text>
+        <text x="716" y="310" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#B91C1C">NEVER CROSS</text>
+        <!-- flows -->
+        <line x1="154" y1="156" x2="154" y2="180" stroke="#334155" stroke-width="1.4" marker-end="url(#tD)"/>
+        <line x1="154" y1="234" x2="154" y2="258" stroke="#334155" stroke-width="1.4" marker-end="url(#tD)"/>
+        <path d="M 264 206 C 460 206, 500 128, 698 125" fill="none" stroke="#0369A1" stroke-width="1.8" marker-end="url(#tA)"/>
+        <path d="M 264 292 C 450 292, 500 210, 698 208" fill="none" stroke="#B45309" stroke-width="1.8" marker-end="url(#tW)"/>
+        <line x1="264" y1="112" x2="612" y2="112" stroke="#B91C1C" stroke-width="1.6" stroke-dasharray="3 4" marker-end="url(#tX)"/>
+        <text x="360" y="104" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#B91C1C">blocked at boundary</text>
+      </svg>
+      <figcaption><b>Data minimization, drawn:</b> only aggregates (blue) and — when actively
+        diagnosing one record — a PII-masked sample (amber) cross into the model. Raw rows are blocked
+        at the boundary. Your data and the audit log both stay customer-side.</figcaption>
+    </figure>
+
+    <div class="diglegend">
+      <span><span class="d" style="background:#0369A1"></span>trust / aggregated path</span>
+      <span><span class="d" style="background:#059669"></span>read-only</span>
+      <span><span class="d" style="background:#B45309"></span>write-guarded / masked</span>
+      <span><span class="d" style="background:#B91C1C"></span>blocked / never crosses</span>
     </div>
+  </div>
+</section>
+
+<!-- ACCURACY / CORRECTNESS -->
+<section id="accuracy" style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">// how we keep it correct</span>
+      <h2>Correct, not just complete.</h2>
+      <p>Anyone can force a check green. The hard part of a master-data conversion is doing it so the
+        data is <b>consistent</b>, the process is <b>secure</b>, and the result is <b>verifiably right</b>
+        — with people, not a black box, accountable for every change. That is where we spend the effort.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="chip go">CONSISTENCY</span><h3>Integrity, not just a green tick</h3>
+        <p>"RC green" can hide un-created Business Partners — the check only wants a link row. We
+          reconcile links against the actual BP records, harmonize customers that are also vendors into
+          one partner, and handle the match-code and buffer traps that silently corrupt names. Green
+          means <b>real, consistent</b> BPs.</p></div>
+      <div class="card hi"><span class="chip warn">HUMAN-IN-THE-LOOP</span><h3>People verify the accuracy</h3>
+        <p>The AI does the diagnosis; humans own the decisions. Every write is dry-run first and
+          approved batch by batch. We <b>sample and verify</b> converted records against source — a
+          statistically meaningful check per account group — so accuracy is measured, not assumed.
+          Nothing writes autonomously.</p></div>
+      <div class="card"><span class="chip blue">SECURITY &amp; GOVERNANCE</span><h3>Secure by design</h3>
+        <p>The engine runs in your landscape and returns aggregates, not records; personal data is
+          masked before anyone — or any model — sees it; production is refused by default; access stays
+          least-privilege. Data residency and minimization aligned with <b>PDPA &amp; GDPR</b>.</p></div>
+      <div class="card"><span class="chip blue">AUDITABILITY</span><h3>Every change on the record</h3>
+        <p>An immutable log captures who changed what, where, and when; each fix is mapped to a SAP
+          Note or a named config change; the same read gives the same numbers. That is the evidence
+          trail your auditors and your cutover board expect.</p></div>
+    </div>
+    <div class="callout"><span class="ic">◆</span>
+      <p><b>Field-tested, method-first.</b> Proven on real ECC→S/4HANA conversions — from an SP-gated
+        framework rebuild to multi-country data harmonization — the method is built to hold as the data
+        volume grows, because it's the <b>governance and verification</b> that scale, not luck.</p></div>
   </div>
 </section>
 
 <!-- DELIVERABLES -->
-<section id="deliverables" style="background:var(--surface-2)">
+<section id="deliverables">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">// what you get</span>
