@@ -119,8 +119,17 @@
   footer a:hover{color:#fff}
   footer .mono{font-family:var(--mono);font-size:12px}
 
+  /* s4 spotlight */
+  .spotlight .box{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--fiori);border-radius:var(--r-lg);padding:34px;display:grid;grid-template-columns:1.5fr .85fr;gap:32px;align-items:center}
+  .spotlight .box .mini{display:grid;gap:12px}
+  .spotlight .box .mini .m{border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;background:var(--surface-2)}
+  .spotlight .box .mini .m .num{font-family:var(--mono);font-weight:600;color:var(--ink);font-size:1.15rem}
+  .spotlight .box .mini .m .lbl{font-size:12px;color:var(--muted)}
+  .spotlight h2{font-size:clamp(1.5rem,1.1rem+1.6vw,2.2rem);margin:10px 0 12px}
+
   @media(max-width:860px){
     .nav .links{display:none}
+    .spotlight .box{grid-template-columns:1fr;gap:22px}
     .stats .wrap{grid-template-columns:1fr 1fr}
     .stat:nth-child(3){border-left:0}
     .stat{border-top:1px solid var(--border)}
@@ -140,6 +149,7 @@
     <div class="brand"><span class="sq"></span>adamOne <small>Services</small></div>
     <nav class="links">
       <a href="#services">Services</a>
+      <a href="/si-resolver/">S/4 Conversion</a>
       <a href="https://fiori.adamoneservices.com/">Fiori&nbsp;↗</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -210,6 +220,25 @@
         <span class="go">See packages &amp; the delivery flow →</span>
       </a>
 
+    </div>
+  </div>
+</section>
+
+<!-- S/4 SPOTLIGHT -->
+<section class="spotlight" id="s4" style="padding-top:0">
+  <div class="wrap">
+    <div class="box">
+      <div>
+        <span class="eyebrow" style="color:var(--fiori)">// productized offering</span>
+        <h2>S/4HANA conversion readiness — make your SI checks <span style="color:var(--fiori)">go green.</span></h2>
+        <p style="color:var(--ink-2);margin:0 0 22px;max-width:60ch">We resolve <b style="color:var(--ink)">MasterData_BP</b> (Customer/Vendor → Business Partner) — the Simplification Item that turns an S/4 conversion into a master-data project. AI-assisted, governed, read-only to start. Also available to consultancies under <b style="color:var(--ink)">partner licensing</b>.</p>
+        <a class="btn btn-primary" href="/si-resolver/">Explore the offering →</a>
+      </div>
+      <div class="mini">
+        <div class="m"><div class="num">143,088<span style="color:var(--fiori)">/143,090</span></div><div class="lbl">vendors converted to Business Partners</div></div>
+        <div class="m"><div class="num">93</div><div class="lbl">dual entities merged to dual-role BPs</div></div>
+        <div class="m"><div class="num">RC12 → RC0</div><div class="lbl">MasterData_BP taken green</div></div>
+      </div>
     </div>
   </div>
 </section>

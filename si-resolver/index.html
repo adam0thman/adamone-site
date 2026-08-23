@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S/4HANA Conversion Readiness — adamOne Services (AOS)</title>
+<meta name="description" content="AOS SI-Resolver: AI-assisted, governed resolution of the S/4HANA MasterData_BP Simplification Item (Customer/Vendor → Business Partner). Proven at 150,000-record scale. Read-only to start.">
+<meta property="og:title" content="Make your S/4HANA SI checks go green — adamOne Services">
+<meta property="og:description" content="Productized MasterData_BP conversion readiness. AI-assisted, governed, proven. Partner licensing available.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://adamoneservices.com/si-resolver/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#F8FAFC; --surface:#FFFFFF; --surface-2:#F1F5F9;
+    --border:#E2E8F0; --border-2:#CBD5E1;
+    --ink:#0F172A; --ink-2:#334155; --muted:#64748B; --muted-2:#94A3B8;
+    --accent:#0369A1; --accent-strong:#075985; --accent-soft:#E0F2FE;
+    --basis:#334155; --abap:#0369A1; --btp:#0891B2; --fiori:#059669;
+    --go:#059669; --go-strong:#047857; --go-soft:#D9F5E9;
+    --warn:#B45309; --warn-soft:#FBEEDC; --crit:#B91C1C; --crit-soft:#FBE3E3;
+    --sans:'Lexend',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --r:10px; --r-lg:14px; --maxw:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink-2);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent);font-weight:500}
+  h1,h2,h3{color:var(--ink);font-weight:700;letter-spacing:-.02em;line-height:1.08;margin:0}
+
+  .topbar{height:3px;background:linear-gradient(90deg,var(--basis),var(--abap),var(--btp),var(--fiori))}
+
+  header.nav{position:sticky;top:0;z-index:20;background:rgba(248,250,252,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-weight:700;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .sq{width:10px;height:10px;border-radius:2px;background:var(--accent)}
+  .brand small{color:var(--muted);font-weight:400;font-family:var(--mono);font-size:12px}
+  .nav .links{display:flex;gap:24px;align-items:center}
+  .nav .links a{font-size:14px;color:var(--ink-2);text-decoration:none;font-weight:500}
+  .nav .links a:hover{color:var(--accent)}
+  .nav .cta{font-size:13px;text-decoration:none;padding:9px 16px;border-radius:8px;background:var(--accent);color:#fff;font-weight:600;transition:background .15s}
+  .nav .cta:hover{background:var(--accent-strong)}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:600;padding:13px 22px;border-radius:9px;font-size:15px;transition:background .15s,border-color .15s,color .15s;cursor:pointer;border:1px solid transparent}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-strong)}
+  .btn-go{background:var(--go);color:#fff}
+  .btn-go:hover{background:var(--go-strong)}
+  .btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-2)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .btn svg{width:18px;height:18px}
+  .actions{display:flex;flex-wrap:wrap;gap:12px}
+
+  /* hero */
+  .hero{position:relative;padding:76px 0 56px}
+  .hero::before{content:"";position:absolute;inset:0;z-index:0;
+    background-image:radial-gradient(var(--border-2) 1px,transparent 1px);background-size:22px 22px;
+    -webkit-mask-image:linear-gradient(180deg,#000,transparent 80%);mask-image:linear-gradient(180deg,#000,transparent 80%);opacity:.5}
+  .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);border:1px solid var(--border-2);background:var(--surface);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--fiori)}
+  h1{font-size:clamp(2.2rem,1.1rem+4vw,3.9rem);margin-bottom:20px;letter-spacing:-.035em}
+  h1 .hl{color:var(--go)}
+  .lede{font-size:clamp(1.04rem,.95rem+.45vw,1.24rem);color:var(--ink-2);max-width:56ch;margin:0 0 28px}
+  .lede b{color:var(--ink);font-weight:600}
+  .hero-note{margin-top:20px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .hero-note .p{color:var(--go)}
+  @media(max-width:880px){.hero .wrap{grid-template-columns:1fr;gap:30px}}
+
+  /* status panel */
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:0 1px 2px rgba(15,23,42,.06),0 16px 34px -20px rgba(15,23,42,.3);padding:20px}
+  .panel .phead{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+  .panel .phead .t{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .panel .phead .tx{font-family:var(--mono);font-size:11px;color:var(--accent)}
+  .check-row{display:flex;align-items:center;justify-content:space-between;padding:12px 2px;border-bottom:1px dashed var(--border)}
+  .check-row:last-of-type{border-bottom:0}
+  .check-row .name{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+  .rc{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px}
+  .rc::before{content:"";width:7px;height:7px;border-radius:50%}
+  .rc.g{background:var(--go-soft);color:var(--go-strong)} .rc.g::before{background:var(--go)}
+  .rc.a{background:var(--warn-soft);color:var(--warn)} .rc.a::before{background:var(--warn)}
+  .rc.r{background:var(--crit-soft);color:var(--crit)} .rc.r::before{background:var(--crit)}
+  .panel .resolved{margin-top:12px;padding-top:14px;border-top:1px solid var(--border);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .panel .resolved .big{font-weight:800;font-size:1.5rem;color:var(--go-strong);letter-spacing:-.02em}
+  .panel .resolved .s{font-size:12.5px;color:var(--ink-2)}
+
+  /* stat strip (site component) */
+  .stats{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);padding-top:0;padding-bottom:0}
+  .stat{padding:24px 20px;border-left:1px solid var(--border)}
+  .stat:first-child{border-left:0}
+  .stat .num{font-family:var(--mono);font-size:1.7rem;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+  .stat .num .u{color:var(--go)}
+  .stat .lbl{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+  section{padding:74px 0}
+  .sec-head{max-width:64ch;margin-bottom:40px}
+  h2{font-size:clamp(1.7rem,1.2rem+1.9vw,2.5rem);margin:10px 0 12px}
+  .sec-head p{color:var(--ink-2);font-size:1.04rem;margin:0}
+
+  /* generic card grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid.two{grid-template-columns:1fr 1fr}
+  .card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:11px}
+  .card.hi{border-color:var(--go)}
+  .card .chip{align-self:flex-start;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.05em;padding:4px 9px;border-radius:6px}
+  .chip.blue{color:var(--accent);background:var(--accent-soft)}
+  .chip.go{color:var(--go-strong);background:var(--go-soft)}
+  .chip.warn{color:var(--warn);background:var(--warn-soft)}
+  .chip.crit{color:var(--crit);background:var(--crit-soft)}
+  .card h3{font-size:1.14rem}
+  .card p{margin:0;color:var(--ink-2);font-size:14.3px}
+  .card .dn{font-family:var(--mono);font-size:11.5px;color:var(--go);letter-spacing:.05em}
+  .card ul.checks{margin:4px 0 0;padding:0;list-style:none;display:block}
+  .card ul.checks li{position:relative;padding-left:20px;margin:8px 0;font-size:14px;color:var(--ink-2)}
+  .card ul.checks li::before{content:"→";position:absolute;left:0;top:0;color:var(--go);font-family:var(--mono)}
+  .card ul.checks li b{color:var(--ink);font-weight:600}
+
+  /* tier steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:880px){.steps{grid-template-columns:1fr 1fr}}
+  .step{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px 20px;overflow:hidden}
+  .step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--edge,var(--go))}
+  .step .stn{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .step h3{font-size:1.14rem;margin:6px 0 0}
+  .step p{margin:12px 0 0;font-size:13.6px;color:var(--ink-2)}
+
+  /* cases */
+  .case .cn{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.05em}
+  .case .r{margin-top:4px;font-family:var(--mono);font-size:12px;color:var(--go-strong);font-weight:500}
+
+  /* callout */
+  .callout{margin-top:26px;display:flex;gap:13px;align-items:flex-start;background:var(--accent-soft);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--r-lg);padding:18px 22px}
+  .callout.go{background:var(--go-soft);border-left-color:var(--go)}
+  .callout .ic{color:var(--accent);font-weight:600;font-size:17px}
+  .callout.go .ic{color:var(--go-strong)}
+  .callout p{margin:0;font-size:14.3px;color:var(--ink)}
+  .callout b{color:var(--ink)}
+  .callout a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+
+  /* why navy (site component) */
+  .why{background:var(--ink);color:#CBD5E1}
+  .why .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}
+  .why .eyebrow{color:#7DD3FC}
+  .why h2{color:#fff}
+  .why .intro{color:#94A3B8;font-size:1.05rem;margin-top:12px}
+  .why .pts{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .why .pt .n{font-family:var(--mono);font-size:13px;color:#34D399;font-weight:600;margin-bottom:8px}
+  .why .pt b{display:block;color:#fff;font-size:15px;margin-bottom:4px}
+  .why .pt span{font-size:13.5px;color:#94A3B8}
+  @media(max-width:860px){.why .wrap{grid-template-columns:1fr;gap:28px}.why .pts{grid-template-columns:1fr}}
+
+  /* contact */
+  .contact{text-align:center}
+  .contact .wrap{max-width:660px}
+  .contact p{color:var(--ink-2);margin:0 auto 28px;font-size:1.06rem}
+  .contact .actions{justify-content:center}
+  .contact .addr{margin-top:20px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+
+  footer{background:var(--ink);color:#94A3B8;padding:32px 0;font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer a{color:#CBD5E1;text-decoration:none}
+  footer a:hover{color:#fff}
+  footer .mono{font-family:var(--mono);font-size:12px}
+
+  @media(max-width:860px){
+    .nav .links{display:none}
+    .stats .wrap{grid-template-columns:1fr 1fr}
+    .stat:nth-child(3){border-left:0}
+    .stat{border-top:1px solid var(--border)}
+    .stat:nth-child(-n+2){border-top:0}
+    .grid,.grid.two{grid-template-columns:1fr}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="sq"></span>adamOne <small>Services</small></a>
+    <nav class="links">
+      <a href="#approach">Approach</a>
+      <a href="#proof">Track record</a>
+      <a href="#partners">Partners</a>
+      <a href="/#services">All services</a>
+    </nav>
+    <a class="cta" href="#contact">Talk to us</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="badge"><span class="dot"></span>S/4HANA conversion · Simplification Items</div>
+      <h1>Make your SI checks <span class="hl">go green.</span></h1>
+      <p class="lede">The same shop that runs your <b>BASIS</b> and writes your <b>ABAP</b> resolves the
+        master-data blocker in your ECC-to-S/4HANA conversion — starting with the one that stops most
+        projects: <b>MasterData_BP</b> (Customer/Vendor → Business Partner). AI-assisted, governed,
+        proven at 150,000-record scale.</p>
+      <div class="actions">
+        <a class="btn btn-go" href="#contact">Book a readiness assessment</a>
+        <a class="btn btn-ghost" href="#approach">See how we work</a>
+      </div>
+      <div class="hero-note"><span class="p">$</span> read-only to start — your master data never leaves your landscape</div>
+    </div>
+
+    <div class="panel" role="img" aria-label="Readiness check panel: MasterData_BP sub-checks moving from error and warning states to RC0 green, with 143,088 of 143,090 vendors linked.">
+      <div class="phead"><span class="t">/SDF/RC_START_CHECK</span><span class="tx">MasterData_BP</span></div>
+      <div class="check-row"><span class="name">CVI_MAPPING</span><span class="rc r">RC12&nbsp;→&nbsp;RC0</span></div>
+      <div class="check-row"><span class="name">CHK_BP_ROLE</span><span class="rc g">RC0</span></div>
+      <div class="check-row"><span class="name">CHK_BP_AC</span><span class="rc g">RC0</span></div>
+      <div class="check-row"><span class="name">CHK_VEND_MAP</span><span class="rc g">RC0</span></div>
+      <div class="check-row"><span class="name">CHK_CON_ASSIGNMENT</span><span class="rc a">RC4</span></div>
+      <div class="resolved">
+        <span class="big">143,088<span style="color:var(--muted-2);font-weight:600;font-size:.62em"> / 143,090</span></span>
+        <span class="s">vendors linked · 0 orphans on customers · 93 dual entities merged</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="num">143,088<span class="u">/143,090</span></div><div class="lbl">vendors converted to BPs (Universiti Malaya)</div></div>
+    <div class="stat"><div class="num">100<span class="u">%</span></div><div class="lbl">customers converted · 0 customer orphans</div></div>
+    <div class="stat"><div class="num">93</div><div class="lbl">dual entities merged to dual-role BPs</div></div>
+    <div class="stat"><div class="num">35,673</div><div class="lbl">unmappable-industry records cleansed</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">// the blocker</span>
+      <h2>One red check can hold your whole go-live.</h2>
+      <p>The S/4HANA Readiness Check turns your conversion into a wall of Simplification Items. Most go
+        green with config. A few don't — and MasterData_BP is the one that turns a technical upgrade
+        into a master-data project. It fails for two very different reasons, and telling them apart is
+        where projects lose weeks.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="chip crit">framework</span><h3>The BP framework isn't ready</h3>
+        <p>An SP level too low to generate CVI proxy objects, half-failed proxies, missing customizing.
+          Nothing can be created until it's fixed — and it's easy to misdiagnose as a data problem.</p></div>
+      <div class="card"><span class="chip crit">data quality</span><h3>The data won't convert</h3>
+        <p>Unmappable industry keys, placeholder countries, missing tax categories, bad characters in
+          names, customers that are also vendors. At scale, thousands of records each fail their own way.</p></div>
+      <div class="card"><span class="chip warn">the trap</span><h3>"RC green" ≠ "BPs created"</h3>
+        <p>The check only verifies a link row exists — an orphaned link passes the gate while the
+          Business Partner behind it was never created. We report both numbers, honestly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach" style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">// how we work</span>
+      <h2>Earned in stages. You can stop at any tier.</h2>
+      <p>We don't ask for broad system access on day one. We start read-only, prove the picture, and
+        only escalate to changes when you've seen the plan and approved it. Each step is a deliberate
+        grant — the safe default never changes on its own.</p>
+    </div>
+    <div class="steps">
+      <div class="step" style="--edge:var(--go)"><div class="stn">TIER 1 · read-only</div><h3>Gauge</h3>
+        <p>A read-only readiness assessment against your system (or a copy). Volumes, overlap,
+          data-quality percentages, SP gate, config readiness — turned into a report you can act on.</p></div>
+      <div class="step" style="--edge:var(--go)"><div class="stn">TIER 2 · read-only</div><h3>Diagnose</h3>
+        <p>We read the post-processing errors, resolve every message to its root cause, and hand you a
+          prioritized fix list mapped to SAP Notes and config — before touching anything.</p></div>
+      <div class="step" style="--edge:var(--warn)"><div class="stn">TIER 3 · write-guarded</div><h3>Remediate</h3>
+        <p>We apply the config and data fixes and run the CVI load — dry-run first, batch by batch,
+          each with your explicit approval. At scale, a self-resuming loader that survives restarts.</p></div>
+      <div class="step" style="--edge:var(--go)"><div class="stn">TIER 4 · read-only</div><h3>Verify</h3>
+        <p>Re-run the Readiness Check to RC0, clear every orphan link, and hand over a complete audit
+          record of what changed and why — your evidence trail for cutover.</p></div>
+    </div>
+    <div class="callout"><span class="ic">◆</span>
+      <p><b>Governance is built in, not bolted on.</b> The tooling runs inside your landscape, returns
+        aggregates rather than records, masks any personal data before it's ever inspected, and refuses
+        production by default. <a href="https://claude.ai/code/artifact/fa969ed4-9df8-41b3-ac05-b0f71f3ea1cb" target="_blank" rel="noopener">See the architecture &amp; data-governance model →</a></p></div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">// track record</span>
+      <h2>Proven across two real conversions.</h2>
+      <p>Not a slide-deck methodology — an operating one, sharpened on a small SP-gated system and a
+        150,000-record data-quality problem.</p>
+    </div>
+    <div class="grid two">
+      <div class="card case"><span class="cn">CASE · SP-GATED</span><h3>Digital DSD</h3>
+        <p>A small landscape 12 years behind on support packs — the BP framework literally couldn't
+          generate. We ran the SP upgrade, cleared the phantom proxies, fixed the client-copy config
+          gaps, and loaded clean.</p>
+        <div class="r">→ 1,429 Business Partners · 0 orphans</div></div>
+      <div class="card case"><span class="cn">CASE · DATA AT SCALE</span><h3>Universiti Malaya</h3>
+        <p>150k master records, 1,759 partners hidden under a placeholder country across 91 real
+          countries, 42 missing tax categories, dual entities to merge. A self-resuming load that
+          survived 13 restarts and a 3.5-hour VPN outage.</p>
+        <div class="r">→ RC12 → RC4 · CVI_MAPPING green</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section id="deliverables" style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">// what you get</span>
+      <h2>Clear deliverables at every tier.</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="dn">DELIVERABLE 01</span><h3>Readiness Report</h3>
+        <ul class="checks">
+          <li>Customer &amp; vendor volumes</li>
+          <li>Dual-entity overlap (drives BP licensing)</li>
+          <li>Data-quality: % clean vs % to cleanse</li>
+          <li>SP-level gate &amp; config-readiness verdict</li>
+          <li>Prioritized remediation plan</li>
+        </ul></div>
+      <div class="card"><span class="dn">DELIVERABLE 02</span><h3>Remediation &amp; Load</h3>
+        <ul class="checks">
+          <li>Config completed (roles, grouping, datasets)</li>
+          <li>Data cleansed at source, by root cause</li>
+          <li>Dual entities harmonized &amp; merged</li>
+          <li>CVI load executed, orphans cleared to zero</li>
+          <li>Approval-gated, batch by batch</li>
+        </ul></div>
+      <div class="card"><span class="dn">DELIVERABLE 03</span><h3>RC-Green + Audit Record</h3>
+        <ul class="checks">
+          <li>MasterData_BP verified to RC0</li>
+          <li>Residual items listed with reasons</li>
+          <li>Every change mapped to a Note or config</li>
+          <li>Immutable audit trail for cutover sign-off</li>
+          <li>DEV → QAS → PRD handover</li>
+        </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">// why AOS</span>
+      <h2>Consulting judgement, at machine speed.</h2>
+      <p class="intro">An AI resolver drives the repetitive diagnosis; a human approves every change.
+        One shop runs the SP upgrade, drives the load, and signs off the check.</p>
+    </div>
+    <div class="pts">
+      <div class="pt"><div class="n">01</div><b>AI-assisted, expert-governed</b><span>The resolver reads thousands of error messages and resolves each to its cause — but never writes autonomously. Every state change waits on a human.</span></div>
+      <div class="pt"><div class="n">02</div><b>Governance-first</b><span>Aggregates over records, PII masked before inspection, data resident in your landscape, production refused by default. Aligned with PDPA &amp; GDPR.</span></div>
+      <div class="pt"><div class="n">03</div><b>Honest reporting</b><span>We report the uncomfortable number too — that "RC green" can hide un-created Business Partners. You get the real state.</span></div>
+      <div class="pt"><div class="n">04</div><b>One shop, whole landscape</b><span>BASIS runs the SP upgrade, ABAP drives the load, same shop signs off. No hand-off gaps between build and run.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">// for SAP consultancies</span>
+      <h2>Own the outcome. License the engine.</h2>
+      <p>The SI-Resolver is <b style="color:var(--ink)">built, owned, and warranted by adamOne Services</b>.
+        If you run S/4HANA conversions — as a systems integrator, a Basis practice, or an SAP partner —
+        you can deliver MasterData_BP readiness under your own badge, powered by our engine and backed
+        by our support.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="chip blue">MODEL · DIRECT</span><h3>Engagement</h3>
+        <ul class="checks">
+          <li>We run the readiness &amp; resolution for your project</li>
+          <li>Fixed-scope assessment, then remediation by tier</li>
+          <li>Best when you want the outcome, not the tool</li>
+        </ul></div>
+      <div class="card hi"><span class="chip go">MODEL · PARTNER</span><h3>Partner licensing</h3>
+        <ul class="checks">
+          <li>License the engine at <b>partner pricing</b></li>
+          <li>Deliver under your own brand, our warranty behind it</li>
+          <li>Onboarding, updates &amp; escalation support included</li>
+          <li>For integrators &amp; consultancies</li>
+        </ul></div>
+      <div class="card"><span class="chip blue">MODEL · ASSESS-ONLY</span><h3>Readiness-as-a-service</h3>
+        <ul class="checks">
+          <li>The read-only gauge as a standalone deliverable</li>
+          <li>A branded readiness report for your prospect</li>
+          <li>Low-risk entry point — no write access needed</li>
+        </ul></div>
+    </div>
+    <div class="callout go"><span class="ic">◆</span>
+      <p><b>One engine, warranted at the source.</b> However it's delivered — directly or through a
+        partner — the tool is developed and maintained by adamOne Services, so the methodology, the
+        governance model, and the fixes stay consistent and supported.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact" style="background:var(--surface-2)">
+  <div class="wrap">
+    <span class="eyebrow">// get started</span>
+    <h2 style="margin:10px 0 12px">Find out where you stand — before you commit.</h2>
+    <p>Start with a read-only readiness assessment. We'll show you your BP-conversion exposure —
+      volumes, overlap, data-quality, and blockers — and scope the work from there. Reach out for a
+      conversation and pricing.</p>
+    <div class="actions">
+      <a class="btn btn-go" href="https://wa.me/60133609999?text=Hi%20AOS%20%E2%80%94%20I%27d%20like%20to%20talk%20about%20S%2F4HANA%20conversion%20%2F%20MasterData_BP%20readiness." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.055zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        WhatsApp us
+      </a>
+      <a class="btn btn-ghost" href="mailto:hello@adamoneservices.com?subject=S%2F4HANA%20SI%20Readiness%20enquiry&body=Area%3A%20S%2F4%20Conversion%20%2F%20MasterData_BP%0AWhat%20you%20need%3A%0A">Email us</a>
+    </div>
+    <div class="addr">+60 13 360 9999 · hello@adamoneservices.com</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="mono">© <span id="yr">2026</span> adamOne Services (AOS) · SI-Resolver developed &amp; warranted by AOS · BASIS · ABAP · BTP · Fiori</div>
+    <div><a href="/">Home</a> · <a href="https://fiori.adamoneservices.com/">Fiori microsite ↗</a></div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
